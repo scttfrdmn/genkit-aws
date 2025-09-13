@@ -1,0 +1,108 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: 1.23.x
+
+    - name: Run tests
+      run: go test -v -race ./...
+
+  release:
+    needs: test
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: 1.23.x
+
+    - name: Build examples
+      run: |
+        mkdir -p dist
+        GOOS=linux GOARCH=amd64 go build -o dist/bedrock-chat-linux-amd64 ./cmd/examples/bedrock-chat
+        GOOS=darwin GOARCH=amd64 go build -o dist/bedrock-chat-darwin-amd64 ./cmd/examples/bedrock-chat
+        GOOS=windows GOARCH=amd64 go build -o dist/bedrock-chat-windows-amd64.exe ./cmd/examples/bedrock-chat
+        
+        GOOS=linux GOARCH=amd64 go build -o dist/monitoring-demo-linux-amd64 ./cmd/examples/monitoring-demo
+        GOOS=darwin GOARCH=amd64 go build -o dist/monitoring-demo-darwin-amd64 ./cmd/examples/monitoring-demo
+        GOOS=windows GOARCH=amd64 go build -o dist/monitoring-demo-windows-amd64.exe ./cmd/examples/monitoring-demo
+
+    - name: Generate changelog
+      id: changelog
+      run: |
+        # Simple changelog generation - you might want to use a tool like git-chglog
+        echo "## Changes" > CHANGELOG.md
+        git log --oneline $(git describe --tags --abbrev=0 HEAD^)..HEAD >> CHANGELOG.md
+        echo "CHANGELOG<<EOF" >> $GITHUB_OUTPUT
+        cat CHANGELOG.md >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+
+    - name: Create Release
+      uses: actions/create-release@v1
+      id: create_release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref_name }}
+        release_name: Release ${{ github.ref_name }}
+        body: |
+          ## GenKit AWS Plugins ${{ github.ref_name }}
+
+          ${{ steps.changelog.outputs.CHANGELOG }}
+
+          ### Installation
+          ```bash
+          go get github.com/genkit-aws/genkit-aws@${{ github.ref_name }}
+          ```
+
+          ### What's New
+          - See commit history below for detailed changes
+          - All binaries are built for Linux, macOS, and Windows
+
+        draft: false
+        prerelease: false
+
+    - name: Upload Release Assets
+      run: |
+        for file in dist/*; do
+          filename=$(basename "$file")
+          curl \
+            -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Content-Type: application/octet-stream" \
+            --data-binary @"$file" \
+            "${{ steps.create_release.outputs.upload_url }}?name=$filename"
+        done
+
+  go-proxy:
+    needs: release
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Notify Go Proxy
+      run: |
+        # Ping the Go proxy to ensure the new version is available
+        curl "https://proxy.golang.org/github.com/genkit-aws/genkit-aws/@v/${{ github.ref_name }}.info" || true

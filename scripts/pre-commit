@@ -1,0 +1,78 @@
+#!/bin/bash
+# Pre-commit hook for GenKit AWS project
+# Ensures code quality before commits
+
+set -e
+
+echo "Running pre-commit checks..."
+
+# Check formatting
+echo "1. Checking code formatting..."
+if [ -n "$(gofmt -l .)" ]; then
+    echo "❌ Code is not formatted. Run: go fmt ./..."
+    gofmt -l .
+    exit 1
+fi
+echo "✅ Code formatting: OK"
+
+# Run go vet
+echo "2. Running go vet..."
+if ! go vet ./...; then
+    echo "❌ go vet failed"
+    exit 1
+fi
+echo "✅ go vet: OK"
+
+# Check for inefficient assignments
+echo "3. Checking for inefficient assignments..."
+if ! $HOME/go/bin/ineffassign ./...; then
+    echo "❌ ineffassign check failed"
+    exit 1
+fi
+echo "✅ ineffassign: OK"
+
+# Check cyclomatic complexity
+echo "4. Checking cyclomatic complexity..."
+if [ -n "$($HOME/go/bin/gocyclo -over 15 .)" ]; then
+    echo "❌ Functions with high complexity found:"
+    $HOME/go/bin/gocyclo -over 15 .
+    exit 1
+fi
+echo "✅ gocyclo: OK"
+
+# Check for spelling errors
+echo "5. Checking for spelling errors..."
+if [ -n "$($HOME/go/bin/misspell .)" ]; then
+    echo "❌ Spelling errors found:"
+    $HOME/go/bin/misspell .
+    exit 1
+fi
+echo "✅ misspell: OK"
+
+# Run staticcheck
+echo "6. Running staticcheck..."
+if ! staticcheck ./...; then
+    echo "❌ staticcheck failed"
+    exit 1
+fi
+echo "✅ staticcheck: OK"
+
+# Run tests
+echo "7. Running tests..."
+if ! go test -race ./...; then
+    echo "❌ Tests failed"
+    exit 1
+fi
+echo "✅ Tests: OK"
+
+# Build everything
+echo "8. Building project..."
+if ! go build ./...; then
+    echo "❌ Build failed"
+    exit 1
+fi
+echo "✅ Build: OK"
+
+echo ""
+echo "🎉 All pre-commit checks passed!"
+echo "✅ Code is ready for commit"
