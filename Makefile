@@ -28,7 +28,28 @@ test:
 test-integration:
 	@echo "Running integration tests..."
 	@echo "Note: This requires valid AWS credentials and may incur AWS charges"
-	go test -v -tags=integration ./...
+	@echo "Using AWS_PROFILE=${AWS_PROFILE:-aws} and AWS_REGION=${AWS_REGION:-us-west-2}"
+	AWS_PROFILE=${AWS_PROFILE:-aws} AWS_REGION=${AWS_REGION:-us-west-2} go test -v -tags=integration ./test/integration/
+
+# Run integration tests with custom profile and region
+test-integration-custom:
+	@echo "Running integration tests with custom AWS profile and region..."
+	@echo "Usage: make test-integration-custom AWS_PROFILE=myprofile AWS_REGION=us-east-1"
+	@if [ -z "$$AWS_PROFILE" ]; then echo "Error: AWS_PROFILE must be set"; exit 1; fi
+	@if [ -z "$$AWS_REGION" ]; then echo "Error: AWS_REGION must be set"; exit 1; fi
+	@echo "Using AWS_PROFILE=$$AWS_PROFILE and AWS_REGION=$$AWS_REGION"
+	go test -v -tags=integration ./test/integration/
+
+# Run integration script with defaults
+integration-script:
+	@echo "Running integration test script with defaults (aws profile, us-west-2 region)..."
+	./scripts/integration-test.sh
+
+# Run integration script with custom parameters
+integration-script-custom:
+	@echo "Running integration test script with custom parameters..."
+	@echo "Usage: make integration-script-custom PROFILE=aws REGION=us-west-2 TIMEOUT=5m"
+	./scripts/integration-test.sh ${PROFILE:-aws} ${REGION:-us-west-2} ${TIMEOUT:-5m}
 
 # Run all tests with coverage
 test-coverage:

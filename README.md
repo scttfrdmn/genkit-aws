@@ -1,5 +1,10 @@
 # GenKit AWS Plugins
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/scottfriedman/genkit-aws)](https://goreportcard.com/report/github.com/scottfriedman/genkit-aws)
+[![Go Reference](https://pkg.go.dev/badge/github.com/scottfriedman/genkit-aws.svg)](https://pkg.go.dev/github.com/scottfriedman/genkit-aws)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Coverage](https://img.shields.io/badge/Coverage-33.7%25-yellow.svg)](./coverage.html)
+
 **AWS plugins for Google's GenKit framework** - add AWS Bedrock models and CloudWatch monitoring to your existing GenKit applications.
 
 > **Important**: This is NOT a fork or port of GenKit. These are plugins that extend Google's GenKit framework to work with AWS services.
@@ -222,7 +227,52 @@ go run main.go
 make test              # Unit tests
 make test-integration  # Integration tests (requires AWS credentials)
 make lint             # Linting
+
+# Integration testing with custom AWS profile/region
+make test-integration-custom AWS_PROFILE=myprofile AWS_REGION=us-east-1
+
+# Standalone integration test script
+./scripts/integration-test.sh aws us-west-2    # Custom profile and region
+./scripts/integration-test.sh                 # Use defaults (aws profile, us-west-2)
 ```
+
+### Integration Testing
+
+The project includes comprehensive integration tests that verify real AWS Bedrock and CloudWatch functionality:
+
+#### **Quick Integration Test**
+```bash
+# Test with your default AWS profile and us-west-2 region
+./scripts/integration-test.sh aws us-west-2
+```
+
+#### **Prerequisites for Integration Tests**
+- AWS CLI configured with valid credentials
+- AWS Bedrock model access enabled in your target region
+- Sufficient AWS permissions for Bedrock and CloudWatch
+
+#### **What Integration Tests Verify**
+- ✅ AWS authentication and configuration
+- ✅ Bedrock model availability and access
+- ✅ Model generation with real Claude/Nova models
+- ✅ CloudWatch metrics submission and buffering
+- ✅ Error handling with invalid models
+- ✅ Flow monitoring and instrumentation
+
+#### **Integration Test Options**
+```bash
+# Using Go test directly
+AWS_PROFILE=aws AWS_REGION=us-west-2 go test -tags=integration ./test/integration/
+
+# Using Makefile
+make test-integration                                    # Uses aws profile, us-west-2
+make test-integration-custom AWS_PROFILE=prod AWS_REGION=us-east-1
+
+# Using standalone script  
+./scripts/integration-test.sh aws us-west-2 10m         # Custom timeout
+```
+
+**⚠️ Note**: Integration tests will incur small AWS charges for Bedrock API calls and CloudWatch metrics.
 
 ## Configuration
 
