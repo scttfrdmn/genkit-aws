@@ -7,12 +7,15 @@ help:
 	@echo "  test              - Run unit tests"
 	@echo "  test-integration  - Run integration tests (requires AWS credentials)"
 	@echo "  lint              - Run linting"
+	@echo "  vuln              - Check for vulnerabilities"
+	@echo "  check             - Run all quality checks (fmt, vet, lint, test, vuln)"
 	@echo "  clean             - Clean build artifacts"
 	@echo "  examples          - Build example applications"
 	@echo "  mocks             - Generate test mocks"
 	@echo "  deps              - Download dependencies"
 	@echo "  fmt               - Format code"
 	@echo "  vet               - Run go vet"
+	@echo "  install-tools     - Install all development tools"
 
 # Build all packages
 build:
@@ -108,14 +111,29 @@ mocks:
 		exit 1; \
 	fi
 
-# Run a complete check (format, vet, lint, test)
-check: fmt vet lint test
+# Run vulnerability check
+vuln:
+	@echo "Checking for vulnerabilities..."
+	@if command -v govulncheck >/dev/null 2>&1; then \
+		govulncheck ./...; \
+	else \
+		echo "govulncheck not found. Install with: go install golang.org/x/vuln/cmd/govulncheck@latest"; \
+		exit 1; \
+	fi
+
+# Run a complete check (format, vet, lint, test, security)
+check: fmt vet lint test vuln
 
 # Install development tools
 install-tools:
 	@echo "Installing development tools..."
 	go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 	go install github.com/golang/mock/mockgen@latest
+	go install golang.org/x/vuln/cmd/govulncheck@latest
+	go install honnef.co/go/tools/cmd/staticcheck@latest
+	go install github.com/fzipp/gocyclo/cmd/gocyclo@latest
+	go install github.com/client9/misspell/cmd/misspell@latest
+	go install github.com/gordonklaus/ineffassign@latest
 
 # Run examples locally (requires AWS credentials)
 run-bedrock-example:
