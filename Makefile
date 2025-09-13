@@ -28,8 +28,8 @@ test:
 test-integration:
 	@echo "Running integration tests..."
 	@echo "Note: This requires valid AWS credentials and may incur AWS charges"
-	@echo "Using AWS_PROFILE=${AWS_PROFILE:-aws} and AWS_REGION=${AWS_REGION:-us-west-2}"
-	AWS_PROFILE=${AWS_PROFILE:-aws} AWS_REGION=${AWS_REGION:-us-west-2} go test -v -tags=integration ./test/integration/
+	@echo "Using AWS_PROFILE=$${AWS_PROFILE:-aws} and AWS_REGION=$${AWS_REGION:-us-west-2}"
+	@AWS_PROFILE=$${AWS_PROFILE:-aws} AWS_REGION=$${AWS_REGION:-us-west-2} go test -v -tags=integration ./test/integration/
 
 # Run integration tests with custom profile and region
 test-integration-custom:

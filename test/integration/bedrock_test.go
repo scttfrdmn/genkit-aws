@@ -165,6 +165,9 @@ func TestCloudWatchMetrics(t *testing.T) {
 	monitor := awsPlugin.GetMonitor()
 	require.NotNil(t, monitor)
 
+	// Use genkit instance for potential future use
+	_ = g
+
 	t.Run("MetricCollection", func(t *testing.T) {
 		// Simulate various monitoring events
 		monitor.OnFlowStart(ctx, "testFlow", "test input")
