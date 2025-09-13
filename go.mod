@@ -1,4 +1,4 @@
-module github.com/genkit-aws/genkit-aws
+module github.com/scttfrdmn/genkit-aws
 
 go 1.24.1
 

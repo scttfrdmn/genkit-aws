@@ -1,9 +1,11 @@
 # GenKit AWS Plugins
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/scottfriedman/genkit-aws)](https://goreportcard.com/report/github.com/scottfriedman/genkit-aws)
-[![Go Reference](https://pkg.go.dev/badge/github.com/scottfriedman/genkit-aws.svg)](https://pkg.go.dev/github.com/scottfriedman/genkit-aws)
+[![Go Report Card](https://goreportcard.com/badge/github.com/scttfrdmn/genkit-aws)](https://goreportcard.com/report/github.com/scttfrdmn/genkit-aws)
+[![Go Reference](https://pkg.go.dev/badge/github.com/scttfrdmn/genkit-aws.svg)](https://pkg.go.dev/github.com/scttfrdmn/genkit-aws)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Coverage](https://img.shields.io/badge/Coverage-33.7%25-yellow.svg)](./coverage.html)
+[![GitHub release](https://img.shields.io/github/v/release/scttfrdmn/genkit-aws)](https://github.com/scttfrdmn/genkit-aws/releases)
+[![GitHub issues](https://img.shields.io/github/issues/scttfrdmn/genkit-aws)](https://github.com/scttfrdmn/genkit-aws/issues)
 
 **AWS plugins for Google's GenKit framework** - add AWS Bedrock models and CloudWatch monitoring to your existing GenKit applications.
 
@@ -24,7 +26,7 @@ go get github.com/firebase/genkit/go@latest
 
 ### 2. Add AWS Plugins
 ```bash
-go get github.com/genkit-aws/genkit-aws@latest
+go get github.com/scttfrdmn/genkit-aws@latest
 ```
 
 ### 3. Use AWS Models in GenKit
@@ -35,9 +37,9 @@ import (
     "github.com/firebase/genkit/go/ai"
     
     // AWS plugins that extend GenKit
-    genkitaws "github.com/genkit-aws/genkit-aws/pkg/genkit-aws"
-    "github.com/genkit-aws/genkit-aws/pkg/bedrock"
-    "github.com/genkit-aws/genkit-aws/pkg/monitoring"
+    genkitaws "github.com/scttfrdmn/genkit-aws/pkg/genkit-aws"
+    "github.com/scttfrdmn/genkit-aws/pkg/bedrock"
+    "github.com/scttfrdmn/genkit-aws/pkg/monitoring"
 )
 
 func main() {
@@ -196,7 +198,7 @@ result, _ := flow.Run(ctx, "What's the weather?")
 ```bash
 go mod init my-genkit-app
 go get github.com/firebase/genkit/go@latest
-go get github.com/genkit-aws/genkit-aws@latest
+go get github.com/scttfrdmn/genkit-aws@latest
 ```
 
 ### 2. Configure AWS Credentials
@@ -329,7 +331,7 @@ We welcome contributions! This project follows Google's GenKit plugin patterns a
 
 ### Development Setup
 ```bash
-git clone https://github.com/genkit-aws/genkit-aws
+git clone https://github.com/scttfrdmn/genkit-aws
 cd genkit-aws
 go mod download
 make test

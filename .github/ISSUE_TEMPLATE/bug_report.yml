@@ -1,0 +1,137 @@
+name: 🐛 Bug Report
+description: Report a bug or issue with GenKit AWS plugins
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting a bug! Please provide as much detail as possible to help us investigate.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: What happened? What did you expect to happen?
+      placeholder: Describe the bug clearly and concisely
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce this bug?
+      placeholder: |
+        1. Configure plugin with...
+        2. Call genkit.Generate with...
+        3. Observe error...
+      value: |
+        1. 
+        2. 
+        3. 
+    validations:
+      required: true
+
+  - type: textarea
+    id: code-sample
+    attributes:
+      label: Code Sample
+      description: Minimal code that reproduces the issue
+      render: go
+      placeholder: |
+        package main
+        
+        import (
+            "github.com/scttfrdmn/genkit-aws/pkg/genkit-aws"
+        )
+        
+        func main() {
+            // Your reproduction code here
+        }
+
+  - type: textarea
+    id: error-output
+    attributes:
+      label: Error Output
+      description: Full error messages and stack traces
+      render: text
+      placeholder: Paste the complete error output here
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      description: Which component is affected?
+      options:
+        - Bedrock Integration
+        - CloudWatch Monitoring
+        - Plugin Configuration
+        - Examples
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: go-version
+    attributes:
+      label: Go Version
+      description: Output of `go version`
+      placeholder: go version go1.23.1 darwin/arm64
+    validations:
+      required: true
+
+  - type: input
+    id: genkit-version
+    attributes:
+      label: GenKit Version
+      description: Version of github.com/firebase/genkit/go
+      placeholder: v1.0.2
+    validations:
+      required: true
+
+  - type: input
+    id: aws-region
+    attributes:
+      label: AWS Region
+      description: Which AWS region are you using?
+      placeholder: us-east-1
+    validations:
+      required: true
+
+  - type: textarea
+    id: aws-config
+    attributes:
+      label: AWS Configuration
+      description: Your GenKit AWS plugin configuration (sanitize any sensitive data)
+      render: go
+      placeholder: |
+        &genkitaws.Config{
+            Region: "us-east-1",
+            Bedrock: &bedrock.Config{
+                Models: []string{"anthropic.claude-3-sonnet-20240229-v1:0"},
+            },
+        }
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      description: Please confirm you have done the following
+      options:
+        - label: I have searched existing issues for duplicates
+          required: true
+        - label: I have tested with the latest version
+          required: true
+        - label: I have provided a minimal reproduction case
+          required: true
+        - label: I have removed any sensitive information (API keys, account IDs, etc.)
+          required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other context, logs, or information that might help
+      placeholder: Add any other context about the problem here

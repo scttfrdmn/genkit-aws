@@ -10,8 +10,8 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
-	"github.com/genkit-aws/genkit-aws/pkg/bedrock"
-	"github.com/genkit-aws/genkit-aws/pkg/monitoring"
+	"github.com/scttfrdmn/genkit-aws/pkg/bedrock"
+	"github.com/scttfrdmn/genkit-aws/pkg/monitoring"
 )
 
 // Config holds configuration for the GenKit AWS plugin

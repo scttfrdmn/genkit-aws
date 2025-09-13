@@ -13,7 +13,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/cloudwatch"
 	"github.com/aws/aws-sdk-go-v2/service/cloudwatch/types"
-	"github.com/genkit-aws/genkit-aws/internal/constants"
+	"github.com/scttfrdmn/genkit-aws/internal/constants"
 )
 
 // CloudWatch implements GenKit monitoring using AWS CloudWatch

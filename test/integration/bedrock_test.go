@@ -17,9 +17,9 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/genkit-aws/genkit-aws/pkg/bedrock"
-	genkitaws "github.com/genkit-aws/genkit-aws/pkg/genkit-aws"
-	"github.com/genkit-aws/genkit-aws/pkg/monitoring"
+	"github.com/scttfrdmn/genkit-aws/pkg/bedrock"
+	genkitaws "github.com/scttfrdmn/genkit-aws/pkg/genkit-aws"
+	"github.com/scttfrdmn/genkit-aws/pkg/monitoring"
 )
 
 func TestBedrockIntegration(t *testing.T) {

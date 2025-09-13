@@ -11,8 +11,8 @@ import (
 	"github.com/firebase/genkit/go/ai"
 	"github.com/firebase/genkit/go/core/api"
 	"github.com/firebase/genkit/go/genkit"
-	"github.com/genkit-aws/genkit-aws/pkg/bedrock"
-	"github.com/genkit-aws/genkit-aws/pkg/monitoring"
+	"github.com/scttfrdmn/genkit-aws/pkg/bedrock"
+	"github.com/scttfrdmn/genkit-aws/pkg/monitoring"
 )
 
 // Plugin represents the main GenKit AWS plugin

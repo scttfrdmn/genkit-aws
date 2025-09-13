@@ -7,7 +7,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/genkit-aws/genkit-aws/internal/constants"
+	"github.com/scttfrdmn/genkit-aws/internal/constants"
 )
 
 // Config holds configuration for Bedrock integration

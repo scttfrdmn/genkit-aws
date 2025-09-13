@@ -6,7 +6,7 @@ package monitoring
 import (
 	"errors"
 
-	"github.com/genkit-aws/genkit-aws/internal/constants"
+	"github.com/scttfrdmn/genkit-aws/internal/constants"
 )
 
 // Config holds configuration for CloudWatch monitoring

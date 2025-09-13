@@ -1,0 +1,70 @@
+name: ❓ Question
+description: Ask a question about usage or implementation
+title: "[Question]: "
+labels: ["question", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have a question about using GenKit AWS plugins? We're here to help!
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your Question
+      description: What would you like to know?
+      placeholder: Ask your question here
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Question Category
+      description: What type of question is this?
+      options:
+        - Installation and Setup
+        - Configuration
+        - AWS Integration
+        - Model Usage
+        - Monitoring and Metrics
+        - Performance
+        - Troubleshooting
+        - Best Practices
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Provide any relevant context about your setup or use case
+      placeholder: |
+        - What are you trying to accomplish?
+        - What have you tried so far?
+        - Any relevant configuration or code?
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Details about your environment (if relevant)
+      placeholder: |
+        - Go version:
+        - AWS region:
+        - GenKit version:
+        - Operating system:
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      description: Please confirm you have done the following
+      options:
+        - label: I have read the README and documentation
+          required: true
+        - label: I have searched existing issues and discussions
+          required: true
+        - label: This is not a bug report (use bug report template instead)
+          required: true
