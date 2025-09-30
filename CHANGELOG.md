@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.4] - 2025-09-30
+
+### Changed
+- Updated `github.com/firebase/genkit/go` dependency from v1.0.2 to v1.0.4
+- Improved compatibility with latest GenKit Go SDK features
+
+### Fixed
+- Integration with upstream GenKit fixes for message transformation
+- Enhanced concurrency support via upstream Registry improvements
+- Better stream message format parsing from upstream updates
+
+### Verified
+- All unit tests passing with updated dependencies
+- Integration tests verified with real AWS Bedrock and CloudWatch services
+- No breaking changes in plugin API
+
 ## [0.1.0] - 2025-09-12
 
 ### Added
@@ -36,5 +52,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Production-ready configuration
   - CI/CD integration ready
 
-[Unreleased]: https://github.com/scottfriedman/genkit-aws/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/scottfriedman/genkit-aws/releases/tag/v0.1.0
+[Unreleased]: https://github.com/scttfrdmn/genkit-aws/compare/v1.0.4...HEAD
+[1.0.4]: https://github.com/scttfrdmn/genkit-aws/compare/v0.1.0...v1.0.4
+[0.1.0]: https://github.com/scttfrdmn/genkit-aws/releases/tag/v0.1.0

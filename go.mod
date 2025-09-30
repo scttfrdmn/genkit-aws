@@ -7,7 +7,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/config v1.27.0
 	github.com/aws/aws-sdk-go-v2/service/bedrockruntime v1.13.0
 	github.com/aws/aws-sdk-go-v2/service/cloudwatch v1.38.0
-	github.com/firebase/genkit/go v1.0.2
+	github.com/firebase/genkit/go v1.0.4
 	github.com/stretchr/testify v1.10.0
 )
 

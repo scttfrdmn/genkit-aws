@@ -5,7 +5,7 @@
 package version
 
 // Version is the current version of the GenKit AWS plugin
-const Version = "0.1.0"
+const Version = "1.0.4"
 
 // GitCommit is the git commit hash (set during build)
 var GitCommit = "unknown"
